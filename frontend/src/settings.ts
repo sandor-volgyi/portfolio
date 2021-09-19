@@ -1,0 +1,1 @@
+export const websiteName: string = "Sándor's portfolio";

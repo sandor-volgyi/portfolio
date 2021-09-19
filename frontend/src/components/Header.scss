@@ -1,0 +1,72 @@
+@import "../colors.scss";
+
+.header {
+  width: 100%;
+  height: 100px;
+  background-color: $greyish-bg-color;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 60px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.header a {
+  text-decoration: none;
+  color: black;
+}
+
+.header .header-title a {
+  color: white;
+}
+
+.header-navigation {
+  display: flex;
+  height: 100%;
+  max-width: 70%;
+  min-width: 40%;
+  align-items: stretch;
+  min-width: 500px;
+  box-sizing: border-box;
+
+  li {
+    width: 100%;
+  }
+  a {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    font-size: 150%;
+    justify-content: center;
+    align-items: center;
+    font-weight: bolder;
+    box-sizing: border-box;
+    padding: 0 20px;
+    &.active,
+    &:hover {
+      color: white;
+      background-color: #4b605e;
+    }
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .header {
+    padding-left: 0px;
+  }
+}
+
+@media screen and (max-width: 630px) {
+  .header {
+    justify-content: center;
+  }
+  .header-navigation {
+    max-width: 100%;
+    min-width: 0px;
+  }
+  .header-title {
+    display: none;
+  }
+}
