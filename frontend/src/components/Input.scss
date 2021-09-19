@@ -1,0 +1,31 @@
+@import "../../colors.scss";
+
+.user-input {
+  height: 80px;
+  width: 90%;
+  margin: 25px 10px;
+}
+
+.user-input input {
+  all: unset;
+  border-bottom: 3px solid turquoise;
+  width: 100%;
+  font-size: 40px;
+  color: black;
+}
+
+.user-input input:focus {
+  border-bottom: 3px solid $dark-button-bg-color;
+}
+
+.user-input p {
+  position: relative;
+  color: red;
+  height: 10px;
+  margin: 0px;
+  top: -2px;
+}
+
+#error {
+  border-top: 3px solid red;
+}

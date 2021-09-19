@@ -14,16 +14,19 @@ function App() {
         <div className="main-page">
             <Switch>
               <Route exact path="/">
-                <h2> FRONTPAGE</h2>
+                <h2>FRONTPAGE</h2>
               </Route>
               <Route path="/messagewall">
-                <h2> MESSAGEWALL</h2>
+                <h2>MESSAGEWALL</h2>
               </Route>
               <Route path="/settings">
-                 <h2> SETTINGS</h2>
+                 <h2>SETTINGS</h2>
               </Route>
               <Route path="/login">
-                <h2> LOGIN</h2>
+                <h2>LOGIN</h2>
+              </Route>
+              <Route path="/register">
+                <h2>REGISTER</h2>
               </Route>
             </Switch>
           </div>

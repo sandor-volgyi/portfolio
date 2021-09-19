@@ -28,6 +28,7 @@ const Header: FC<UserData> = ({ isLoggedIn }) => {
     { access: "visitor", navLabel: "Portfolio", navPath: "/" },
     { access: "visitor", navLabel: "Message wall", navPath: "/messagewall" },
     { access: "visitor", navLabel: "Login", navPath: "/login" },
+    { access: "visitor", navLabel: "Register", navPath: "/register" },
     { access: "member", navLabel: "Portfolio", navPath: "/" },
     { access: "member", navLabel: "Message wall", navPath: "/messagewall" },
     { access: "member", navLabel: "Settings", navPath: "/settings" },

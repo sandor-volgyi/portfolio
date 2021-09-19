@@ -1,0 +1,23 @@
+@import "../colors.scss";
+
+button {
+  all: unset;
+  margin: 5px;
+  padding: 20px 30px;
+  box-shadow: 0 3px #999;
+  background-color: $button-bg-color;
+  border-radius: 10px;
+  margin-left: 60%;
+  color: aliceblue;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+button:hover {
+  background-color: red;
+}
+
+button:active {
+  box-shadow: 0 1px #666;
+  transform: translateY(2px);
+}
