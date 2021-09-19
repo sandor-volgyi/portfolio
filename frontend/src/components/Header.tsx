@@ -32,7 +32,12 @@ const Header: FC<UserData> = ({ isLoggedIn }) => {
     { access: "member", navLabel: "Portfolio", navPath: "/" },
     { access: "member", navLabel: "Message wall", navPath: "/messagewall" },
     { access: "member", navLabel: "Settings", navPath: "/settings" },
-    { access: "member", navLabel: "Logout", navPath: "/", onClick: logout },
+    {
+      access: "member",
+      navLabel: "Logout",
+      navPath: "/logout",
+      onClick: logout,
+    },
   ];
 
   let showMenu: NavData[] = headerNavLinks.filter(
@@ -49,7 +54,7 @@ const Header: FC<UserData> = ({ isLoggedIn }) => {
       <ul className="header-navigation">
         {showMenu.map((x, index) => (
           <li key={index} onClick={x.onClick}>
-            <NavLink activeClassName="active"  exact={true} to={x.navPath}>
+            <NavLink activeClassName="active" exact={true} to={x.navPath}>
               {x.navLabel}
             </NavLink>
           </li>

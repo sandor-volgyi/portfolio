@@ -1,9 +1,9 @@
-import { FC, SyntheticEvent, useState } from "react";
-import * as Input from "../components/Input";
-import * as Button from "../components/Button";
-import "Register.scss";
+import { SyntheticEvent, useState } from "react";
+import Input from "../components/Input";
+import Button from "../components/Button";
+import "./Register.scss";
 import { useHistory } from "react-router-dom";
-//import { ApiError, post } from "../../../common/services/apiService";
+import { ApiError, post } from "../services/apiService";
 
 export interface LoginFormProps {}
 
@@ -11,7 +11,7 @@ export interface LoginResponse {
   token: string;
 }
 
-const LoginForm: FC<LoginFormProps> = () => {
+const LoginForm = () => {
   let history = useHistory();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -21,11 +21,12 @@ const LoginForm: FC<LoginFormProps> = () => {
 
   const login = async (e: SyntheticEvent) => {
     e.preventDefault();
-    
+
     if (!username || password.length < 8) {
       setErrorMessage("Username and password are required.");
       return;
     }
+
     try {
       const loginResponse = await post("/login", { username, password }, false);
       if (!loginResponse.response.ok) {
@@ -33,9 +34,12 @@ const LoginForm: FC<LoginFormProps> = () => {
       }
       const token = (loginResponse.parsedBody as LoginResponse).token;
       localStorage.setItem("token", token);
-      history.push("/kingdom/buildings");
+      if (token) history.push("/");
     } catch (error) {
-      const errorMessage = error.message || error;
+      let errorMessage = "Something went wrong";
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      }
       if (errorMessage.toLowerCase().includes("password")) {
         setPasswordError(errorMessage);
       } else if (errorMessage.toLowerCase().includes("username")) {
@@ -57,7 +61,6 @@ const LoginForm: FC<LoginFormProps> = () => {
 
   return (
     <form className="form" onSubmit={login}>
-      <p className="error-message">{errorMessage}</p>
       <Input
         type="text"
         onChange={setUsername}
@@ -72,7 +75,8 @@ const LoginForm: FC<LoginFormProps> = () => {
         placeholder="Password"
         defaultError={passwordError}
       />
-      <Button title="LOGIN" onClick={login} type="submit" />
+      <p className="error-message">{errorMessage}</p>
+      <Button title="LOGIN" type="submit" />
     </form>
   );
 };

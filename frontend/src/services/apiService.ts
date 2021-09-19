@@ -52,7 +52,8 @@ export const del = (
 };
 
 async function apiCall(props: apInterface): Promise<apiServiceOutput> {
-  const fetchURL = process.env.BACKEND_BASEURL + props.URI;
+  const fetchURL = process.env.REACT_APP_BACKEND_BASEURL + props.URI;
+  console.log(fetchURL, process.env.REACT_APP_BACKEND_BASEURL);
   const fetchHeaders = new Headers();
   fetchHeaders.append("Content-Type", "application/json");
   fetchHeaders.append("Accept", "application/json");
@@ -69,12 +70,13 @@ async function apiCall(props: apInterface): Promise<apiServiceOutput> {
   }
 
   const response = await fetch(fetchURL, { ...fetchParams });
+
   if (response.status === 401) {
-    localStorage.removeItem('token');
-    history.push('/login');
-    return Promise.reject('invalid token');
+    localStorage.removeItem("token");
+    history.push("/login");
+    return Promise.reject("Invalid token");
   }
-  
+
   const body = await response.json();
 
   const data: apiServiceOutput = {

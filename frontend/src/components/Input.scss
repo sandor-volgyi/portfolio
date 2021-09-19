@@ -1,4 +1,4 @@
-@import "../../colors.scss";
+@import "../colors.scss";
 
 .user-input {
   height: 80px;
@@ -15,7 +15,7 @@
 }
 
 .user-input input:focus {
-  border-bottom: 3px solid $dark-button-bg-color;
+  border-bottom: 3px solid $button-bg-color;
 }
 
 .user-input p {

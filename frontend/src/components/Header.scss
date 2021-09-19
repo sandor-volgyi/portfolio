@@ -5,6 +5,7 @@
   height: 100px;
   background-color: $greyish-bg-color;
   display: flex;
+  border: 1px solid black;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
@@ -47,7 +48,7 @@
     &.active,
     &:hover {
       color: white;
-      background-color: #4b605e;
+      background-color: $dark-black-bg-color;
     }
   }
 }
