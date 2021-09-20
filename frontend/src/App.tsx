@@ -2,9 +2,11 @@ import { Switch, Router, Route } from "react-router-dom";
 import { createBrowserHistory } from "history";
 
 import Header from "./components/Header";
+import FrontPage from "./pages/FrontPage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import "./App.scss";
+import MessageWall from "./pages/MessageWall";
 
 export const history = createBrowserHistory({ forceRefresh: true });
 
@@ -18,10 +20,10 @@ function App() {
         <div className="main-page">
           <Switch>
             <Route exact path="/">
-              <h2>FrontPage</h2>
+              <FrontPage />
             </Route>
             <Route path="/messagewall">
-              <h2>MESSAGEWALL</h2>
+              <MessageWall isLoggedIn={isUserLoggedIn} />
             </Route>
             <Route path="/settings">
               <h2>SETTINGS</h2>

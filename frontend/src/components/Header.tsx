@@ -3,7 +3,7 @@ import "./Header.scss";
 import { NavLink, useHistory } from "react-router-dom";
 import { websiteName } from "../settings";
 
-interface UserData {
+export interface UserData {
   isLoggedIn: boolean;
 }
 
