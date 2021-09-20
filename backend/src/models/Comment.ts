@@ -65,4 +65,69 @@ export const Comment = {
     if (!postMyComment.results) throw notFoundError('Unable to save building');
     return postMyComment.results.insertId;
   },
+  getAuthor: async (commentId: number): Promise<Comment[]> => {
+    const getAuthDetails = `
+    SELECT c.user_id, m.meta_value as user_role
+      FROM comment c 
+      LEFT JOIN usermeta m
+      ON c.user_id = m.user_id
+      WHERE m.meta_key = "role" AND c.id = ?
+    `;
+
+    const returnComments: SqlResultComment = await (db.query(getAuthDetails, [
+      commentId,
+    ]) as unknown as SqlResultComment);
+
+    if (!returnComments || !returnComments.results[0]) {
+      throw notFoundError('Comment not found');
+    } else {
+      return returnComments.results;
+    }
+  },
+  deleteComment: async (commentId: number): Promise<boolean> => {
+    const deleteCommentQuery = `
+    DELETE FROM comment WHERE id = ?
+    `;
+
+    const deleteComments: SqlResultComment = await (db.query(
+      deleteCommentQuery,
+      [commentId]
+    ) as unknown as SqlResultComment);
+
+    if (!deleteComments) {
+      throw notFoundError('Comment not found');
+    } else {
+      return true;
+    }
+  },
 };
+
+function roleWeight(role: string): number {
+  switch (role) {
+    case 'admin':
+      return 1;
+    case 'moderator':
+      return 2;
+    case 'member':
+      return 3;
+    default:
+      return 3;
+  }
+}
+
+export function userCanEdit(
+  compareRole: string,
+  compareUserId: number,
+  myUserRole: string,
+  myUserId: number
+): boolean {
+  let canEdit: boolean = false;
+  if (roleWeight(compareRole) > roleWeight(myUserRole)) {
+    canEdit = true;
+  } else if (roleWeight(compareRole) === roleWeight(myUserRole)) {
+    canEdit = compareUserId === myUserId;
+  } else {
+    canEdit = false;
+  }
+  return canEdit;
+}

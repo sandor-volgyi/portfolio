@@ -9,13 +9,12 @@ import "./CommentForm.scss";
 const CommentForm = () => {
   let history = useHistory();
   const [comment, setComment] = useState<string>("");
-  const [errorMessage, setErrorMessage] = useState<undefined | string>();
   const [commentError, setCommentError] = useState<undefined | string>();
 
   const postComment = async (e: SyntheticEvent) => {
     e.preventDefault();
     if (!comment || comment.length < 10) {
-      setErrorMessage("Comment has to be at least 10 characters long.");
+      setCommentError("Comment has to be at least 10 characters long.");
       return;
     }
     const message = {
@@ -30,11 +29,7 @@ const CommentForm = () => {
       }
     } catch (error: any) {
       const errorMessage = error.message || error;
-      if (errorMessage.toLowerCase().includes("comment")) {
-        setCommentError(errorMessage);
-      } else {
-        setErrorMessage(errorMessage);
-      }
+      setCommentError(errorMessage);
     }
   };
 
