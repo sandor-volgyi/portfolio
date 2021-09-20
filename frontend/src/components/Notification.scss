@@ -1,0 +1,14 @@
+.notification {
+  width: 50%;
+  max-width: 500px;
+  clear: both;
+  text-align: center;
+  padding: 30px;
+  margin: 30px auto;
+  border: 1px solid black;
+}
+
+div.notification.error {
+  border: 1px solid red;
+  color: red;
+}

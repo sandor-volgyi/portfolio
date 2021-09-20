@@ -1,0 +1,32 @@
+@import "../colors.scss";
+
+.comment {
+  display: flex;
+  width: 100%;
+  padding: 20px 20px;
+  line-height: 1.5em;
+  //  margin: 20px 0;
+  flex-wrap: wrap;
+  flex-direction: column;
+  box-sizing: border-box;
+
+  .username {
+    font-weight: bold;
+  }
+  .comment-date {
+    font-size: 0.6em;
+    font-style: italic;
+  }
+  .manage-links button {
+    all: unset;
+    background-color: rgb(247, 134, 134);
+    border-radius: 10px;
+    font-size: 0.8em;
+    padding: 4px 10px;
+    margin-right: 10px;
+    cursor: pointer;
+    &:hover {
+      background-color: $dark-black-bg-color;
+    }
+  }
+}

@@ -31,7 +31,7 @@ const Header: FC<UserData> = ({ isLoggedIn }) => {
     { access: "visitor", navLabel: "Register", navPath: "/register" },
     { access: "member", navLabel: "Portfolio", navPath: "/" },
     { access: "member", navLabel: "Message wall", navPath: "/messagewall" },
-    { access: "member", navLabel: "Settings", navPath: "/settings" },
+    //{ access: "member", navLabel: "Settings", navPath: "/settings" },
     {
       access: "member",
       navLabel: "Logout",

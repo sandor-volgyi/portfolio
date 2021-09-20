@@ -1,6 +1,12 @@
 import { db } from '../db/connection';
 import { notFoundError, internalServerError } from '../services/errorService';
 
+export interface UserPayLoad {
+  userId: number;
+  userName: string;
+  userRole: string;
+}
+
 export interface UserData {
   id: number;
   username: string;

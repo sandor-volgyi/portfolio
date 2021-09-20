@@ -1,0 +1,13 @@
+@import "../colors.scss";
+
+.message-wall {
+  width: 80%;
+  background-color: $greyish-bg-color;
+  border: 1px solid black;
+  margin: 30px auto 0;
+  box-sizing: border-box;
+}
+div.comment:nth-child(even) {
+  background: $greyish-bg-color2;
+  text-align: right;
+}

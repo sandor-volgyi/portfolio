@@ -1,3 +1,7 @@
+export function isGeneralError(object: any): object is GeneralError {
+  return 'errorMessage' in object;
+}
+
 export interface GeneralError {
   errorStatus: number;
   errorMessage: string;
