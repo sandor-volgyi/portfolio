@@ -23,7 +23,7 @@ function App() {
               <FrontPage />
             </Route>
             <Route path="/messagewall">
-              <MessageWall isLoggedIn={isUserLoggedIn} />
+              <MessageWall />
             </Route>
             <Route path="/settings">
               <h2>SETTINGS</h2>
