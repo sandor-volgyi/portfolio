@@ -70,13 +70,13 @@ async function apiCall(props: apInterface): Promise<apiServiceOutput> {
 
   const response = await fetch(fetchURL, { ...fetchParams });
 
+  const body = await response.json();
+
   if (response.status === 401) {
     localStorage.removeItem("token");
-    history.push("/login");
-    return Promise.reject("Invalid token");
+    setTimeout(() => history.push("/login"), 5000);
+    return Promise.reject(body.message);
   }
-
-  const body = await response.json();
 
   const data: apiServiceOutput = {
     response: response,

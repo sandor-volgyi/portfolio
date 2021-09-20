@@ -2,6 +2,7 @@ import "./MessageWall.scss";
 import { useEffect, useState } from "react";
 import { get, ApiError } from "../services/apiService";
 import Notification from "../components/Notification";
+import CommentForm from "../components/CommentForm";
 import CommentHolder from "../components/CommentHolder";
 
 export interface Comment {
@@ -56,6 +57,7 @@ const MessageWall = () => {
           message={"Please register / log in to leave a comment."}
         />
       )}
+      {isUserLoggedIn && <CommentForm />}
 
       {notification && <Notification type="error" message={notification} />}
       {comments &&

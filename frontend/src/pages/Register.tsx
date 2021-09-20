@@ -1,7 +1,7 @@
 import { SyntheticEvent, useState } from "react";
 import { useHistory } from "react-router-dom";
 import Input from "../components/Input";
-import Button from "..//components/Button";
+import Button from "../components/Button";
 import { LoginResponse } from "./Login";
 import { ApiError, post } from "../services/apiService";
 import "./Register.scss";

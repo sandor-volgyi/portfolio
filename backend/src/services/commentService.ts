@@ -16,6 +16,14 @@ const get = async (): Promise<CommentResponse> => {
   }
   return { comments: getComments };
 };
+/*
+const post = async (): Promise<CommentResponse> => {
+  const getComments = await Comment.getComments();
+  if (!getComments) {
+    throw notFoundError('Comments not found.');
+  }
+  return { comments: getComments };
+};*/
 
 export const commentService = {
   get,

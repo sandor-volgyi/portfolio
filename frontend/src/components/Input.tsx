@@ -28,12 +28,12 @@ const Input: FC<InputProps> = ({
 
   const validate = (input: string): void => {
     if (!validation) return;
-    setErrorMessage(
-      validation?.validate(input) ? undefined : validation.error
-    );
+    setErrorMessage(validation?.validate(input) ? undefined : validation.error);
   };
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
+  ) => {
     validate(e.target.value);
     setText(e.target.value);
     if (onChange) onChange(e.target.value);
@@ -41,12 +41,20 @@ const Input: FC<InputProps> = ({
 
   return (
     <div className="user-input">
-      <input
-        type={type}
-        onChange={handleChange}
-        placeholder={placeholder}
-        value={text}
-      />
+      {type === "textarea" ? (
+        <textarea
+          onChange={handleChange}
+          placeholder={placeholder}
+          value={text}
+        />
+      ) : (
+        <input
+          type={type}
+          onChange={handleChange}
+          placeholder={placeholder}
+          value={text}
+        />
+      )}
       {errorMessage && <p className="input-error">{errorMessage}</p>}
     </div>
   );

@@ -12,15 +12,12 @@ router.use(express.urlencoded({ extended: true }));
 
 router.post('/login', userController.login);
 router.post('/register', userController.register);
-
-router.use(authenticateRequest);
 router.get('/comment', commentController.get);
-/*
-router.post('/comment', commentController.post);
 
 router.use(authenticateRequest);
-router.put('/comment', commentController.put);
-router.delete('/comment', commentController.delete);
-*/
+//router.post('/comment/:id', commentController.post);
+//router.delete('/comment/:id', commentController.delete);
+//router.post('/comment/:id', commentController.post);
+//router.put('/comment/:id', commentController.put);
 
 export default router;

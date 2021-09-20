@@ -13,6 +13,7 @@ export const authenticateRequest = function (
   const authHeader = req.headers.authorization;
   const token: string | undefined = authHeader && authHeader.split(' ')[1];
   try {
+    console.log(token);
     if (token == null) throw unauthorizedError('Invalid token.');
 
     jwt.verify(
@@ -20,8 +21,13 @@ export const authenticateRequest = function (
       process.env.JWT_SECRETKEY as string,
       function (err, userData) {
         if (err || !userData) throw unauthorizedError('Invalid token');
+        console.log(err, userData);
         if (userData) {
-          if (!('userId' in userData) || !('kingdomId' in userData))
+          if (
+            !('userId' in userData) ||
+            !('userName' in userData) ||
+            !('userRole' in userData)
+          )
             throw unauthorizedError(
               'User details are missing. Please try to re-login!'
             );
@@ -51,6 +57,7 @@ export const authenticateRequest = function (
     );
   } catch (error) {
     if (error instanceof Error) {
+      console.log(error.message, ' - megvagy');
       next(new HttpException(401, error.message));
     } else if (error) {
       if (isGeneralError(error)) {
