@@ -10,5 +10,6 @@ router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
 
 router.post('/login', userController.login);
+router.post('/register', userController.register);
 
 export default router;

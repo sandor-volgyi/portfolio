@@ -1,22 +1,18 @@
-import { FC, SyntheticEvent, useState } from "react";
+import { SyntheticEvent, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { Input } from "../../../common/components";
-import { Button } from "../../../common/components";
-import { ApiError, post } from "../../../common/services/apiService";
-import "./RegisterForm.scss";
+import Input from "../components/Input";
+import Button from "..//components/Button";
+import { LoginResponse } from "./Login";
+import { ApiError, post } from "../services/apiService";
+import "./Register.scss";
 
-export interface RegisterFormProps {}
-const RegisterForm: FC<RegisterFormProps> = () => {
+const Register = () => {
   let history = useHistory();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [kingdom, setKingdom] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<undefined | string>();
   const [userError, setUserError] = useState<undefined | string>();
   const [passwordError, setPasswordError] = useState<undefined | string>();
-
-  const dispatch = useDispatch();
 
   const postUser = async (e: SyntheticEvent) => {
     e.preventDefault();
@@ -27,14 +23,17 @@ const RegisterForm: FC<RegisterFormProps> = () => {
     const user = {
       username,
       password,
-      kingdom,
     };
     try {
       const postNewUser = await post("/register", user, false);
       if (!postNewUser.response.ok) {
         throw new Error((postNewUser.parsedBody as ApiError).message);
       }
-      history.push("/login");
+      const token = (postNewUser.parsedBody as LoginResponse).token;
+      if (token) {
+        localStorage.setItem("token", token);
+        history.push("/");
+      }
     } catch (error: any) {
       const errorMessage = error.message || error;
       if (errorMessage.toLowerCase().includes("password")) {
@@ -58,7 +57,7 @@ const RegisterForm: FC<RegisterFormProps> = () => {
 
   return (
     <form className="form" onSubmit={postUser}>
-      <p className="error-message">{errorMessage}</p>
+      <p className="form-title">Registration</p>
       <Input
         type="text"
         onChange={setUsername}
@@ -73,10 +72,10 @@ const RegisterForm: FC<RegisterFormProps> = () => {
         placeholder="Password"
         defaultError={passwordError}
       />
-      <Input type="text" onChange={setKingdom} placeholder="Kingdom" />
+      <p className="error-message">{errorMessage}</p>
       <Button title="SIGN UP" onClick={postUser} type="submit" />
     </form>
   );
 };
 
-export default RegisterForm;
+export default Register;

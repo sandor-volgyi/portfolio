@@ -4,6 +4,7 @@ import { createBrowserHistory } from "history";
 import Header from "./components/Header";
 import Button from "./components/Button";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 import "./App.scss";
 
 export const history = createBrowserHistory({ forceRefresh: true });
@@ -32,7 +33,7 @@ function App() {
               <Login />
             </Route>
             <Route path="/register">
-              <h2>REGISTER</h2>
+              <Register />
             </Route>
           </Switch>
         </div>

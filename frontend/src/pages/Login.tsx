@@ -33,8 +33,10 @@ const LoginForm = () => {
         throw new Error((loginResponse.parsedBody as ApiError).message);
       }
       const token = (loginResponse.parsedBody as LoginResponse).token;
-      localStorage.setItem("token", token);
-      if (token) history.push("/");
+      if (token) {
+        localStorage.setItem("token", token);
+        history.push("/");
+      }
     } catch (error) {
       let errorMessage = "Something went wrong";
       if (error instanceof Error) {
@@ -61,6 +63,7 @@ const LoginForm = () => {
 
   return (
     <form className="form" onSubmit={login}>
+      <p className="form-title">Login</p>
       <Input
         type="text"
         onChange={setUsername}

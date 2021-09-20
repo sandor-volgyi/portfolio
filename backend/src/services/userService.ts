@@ -1,12 +1,30 @@
 import jwt from 'jsonwebtoken';
-import { compareSync } from 'bcryptjs';
+import { hashSync, compareSync } from 'bcryptjs';
 import { LoginResponse } from '../models/Login';
 import {
   badRequestError,
   notAcceptableError,
   unauthorizedError,
+  ConflictError,
+  internalServerError,
 } from './errorService';
 import { User, UserData } from '../models/User';
+
+const register = async (username: string, password: string): Promise<any> => {
+  validate(username, password);
+  const role = 'member';
+  const dbPassword = hashSync(password, 10);
+  let myError = 'Unkown error happened';
+  const checkUser = await User.isExistingUser(username);
+  if (checkUser) {
+    throw badRequestError('Username is already taken');
+  }
+  const user = await User.registerUser(username, dbPassword, role);
+  if (!user) {
+    throw internalServerError('Registration failed.');
+  }
+  return signToken(user);
+};
 
 const login = async (
   username: string,
@@ -16,8 +34,9 @@ const login = async (
   password = password.trim();
   validate(username, password);
   const user = await User.getUserDetails(username);
-  if (!user || !compareSync(password, user.password || ''))
+  if (!user || !compareSync(password, user.password || '')) {
     throw unauthorizedError('Username or password is incorrect.');
+  }
   return signToken(user);
 };
 
@@ -54,4 +73,5 @@ function signToken(user: UserData): LoginResponse {
 export const userService = {
   login,
   validate,
+  register,
 };

@@ -12,4 +12,17 @@ export const userController = {
       res.status(200).json(data);
     }
   },
+  async register(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    const { username, password } = req.body;
+    const data = await userService.register(username, password).catch(error => {
+      next(new HttpException(error.errorStatus, error.errorMessage));
+    });
+    if (data) {
+      res.status(200).json(data);
+    }
+  },
 };

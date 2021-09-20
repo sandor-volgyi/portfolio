@@ -1,6 +1,6 @@
 export interface GeneralError {
   errorStatus: number;
-  errorMessage: ErrorMessage;
+  errorMessage: string;
 }
 
 interface ErrorMessage {
@@ -19,7 +19,7 @@ function generalError(httpsStatus: number): (s: string) => GeneralError {
   return function (message: string): GeneralError {
     return {
       errorStatus: httpsStatus,
-      errorMessage: errorHandler(message),
+      errorMessage: errorHandler(message).message,
     };
   };
 }
@@ -32,16 +32,13 @@ export const unauthorizedError: (string: string) => GeneralError =
   generalError(401);
 export const notFoundError: (string: string) => GeneralError =
   generalError(404);
+export const ConflictError: (string: string) => GeneralError =
+  generalError(409);
+export const internalServerError: (string: string) => GeneralError =
+  generalError(500);
 
 /*
 export const forbiddenError: (string: string) => GeneralError = generalError(
   403
 );
-
-
-export const ConflictError: (string: string) => GeneralError = generalError(
-  409
-);
-export const internalServerError: (string: string) => GeneralError = generalError(
-  500,
-);*/
+*/
