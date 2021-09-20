@@ -53,7 +53,6 @@ export const del = (
 
 async function apiCall(props: apInterface): Promise<apiServiceOutput> {
   const fetchURL = process.env.REACT_APP_BACKEND_BASEURL + props.URI;
-  console.log(fetchURL, process.env.REACT_APP_BACKEND_BASEURL);
   const fetchHeaders = new Headers();
   fetchHeaders.append("Content-Type", "application/json");
   fetchHeaders.append("Accept", "application/json");
