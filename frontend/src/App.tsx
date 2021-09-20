@@ -2,7 +2,6 @@ import { Switch, Router, Route } from "react-router-dom";
 import { createBrowserHistory } from "history";
 
 import Header from "./components/Header";
-import Button from "./components/Button";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import "./App.scss";
@@ -19,9 +18,7 @@ function App() {
         <div className="main-page">
           <Switch>
             <Route exact path="/">
-              <h2>
-                <Button type="submit" title="kattanj ide" />
-              </h2>
+              <h2>FrontPage</h2>
             </Route>
             <Route path="/messagewall">
               <h2>MESSAGEWALL</h2>
