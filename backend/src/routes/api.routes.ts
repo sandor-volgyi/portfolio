@@ -15,7 +15,7 @@ router.post('/register', userController.register);
 router.get('/comment', commentController.get);
 
 router.use(authenticateRequest);
-//router.post('/comment/:id', commentController.post);
+router.post('/comment/', commentController.post);
 //router.delete('/comment/:id', commentController.delete);
 //router.post('/comment/:id', commentController.post);
 //router.put('/comment/:id', commentController.put);

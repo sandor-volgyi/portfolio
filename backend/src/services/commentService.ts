@@ -3,11 +3,7 @@ import {
   internalServerError,
   notFoundError,
 } from './errorService';
-import { Comment } from '../models/Comment';
-
-interface CommentResponse {
-  comments: Comment[];
-}
+import { Comment, CommentResponse } from '../models/Comment';
 
 const get = async (): Promise<CommentResponse> => {
   const getComments = await Comment.getComments();
@@ -16,15 +12,16 @@ const get = async (): Promise<CommentResponse> => {
   }
   return { comments: getComments };
 };
-/*
-const post = async (): Promise<CommentResponse> => {
-  const getComments = await Comment.getComments();
-  if (!getComments) {
-    throw notFoundError('Comments not found.');
+
+const post = async (userId: number, comment: string): Promise<boolean> => {
+  const postComment = await Comment.postComment(userId, comment);
+  if (!postComment) {
+    throw notFoundError('Comment was not added.');
   }
-  return { comments: getComments };
-};*/
+  return true;
+};
 
 export const commentService = {
   get,
+  post,
 };

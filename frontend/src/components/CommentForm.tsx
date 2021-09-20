@@ -1,4 +1,5 @@
 import { SyntheticEvent, useState } from "react";
+import { useHistory } from "react-router-dom";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import { ApiError, post } from "../services/apiService";
@@ -6,6 +7,7 @@ import { ApiError, post } from "../services/apiService";
 import "./CommentForm.scss";
 
 const CommentForm = () => {
+  let history = useHistory();
   const [comment, setComment] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<undefined | string>();
   const [commentError, setCommentError] = useState<undefined | string>();
@@ -23,6 +25,8 @@ const CommentForm = () => {
       const postNewComment = await post("/comment", message, true);
       if (!postNewComment.response.ok) {
         throw new Error((postNewComment.parsedBody as ApiError).message);
+      } else {
+        history.push("/messagewall");
       }
     } catch (error: any) {
       const errorMessage = error.message || error;

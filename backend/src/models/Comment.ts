@@ -1,6 +1,21 @@
 import { db } from '../db/connection';
 import { notFoundError } from '../services/errorService';
 
+export interface CommentResponse {
+  comments: Comment[];
+}
+
+export interface CommentBody {
+  comment: string;
+}
+
+export interface SqlResultPostComment {
+  results: {
+    insertId: number;
+  };
+  fields: unknown[];
+}
+
 export interface Comment {
   id: number;
   user_id: number;
@@ -27,7 +42,7 @@ export const Comment = {
         ON c.user_id = m.user_id
         WHERE m.meta_key = "role"
         ORDER BY id 
-        ASC`;
+        DESC`;
     const returnComments: SqlResultComment = await (db.query(
       getAllComment
     ) as unknown as SqlResultComment);
@@ -37,5 +52,17 @@ export const Comment = {
     } else {
       return returnComments.results;
     }
+  },
+  postComment: async (userId: number, comment: string): Promise<number> => {
+    const postComment = `
+      INSERT INTO comment ( user_id, created_on, comment) VALUES ( ?,UNIX_TIMESTAMP(),?)`;
+
+    const postMyComment = await (db.query(postComment, [
+      userId,
+      comment,
+    ]) as unknown as SqlResultPostComment);
+
+    if (!postMyComment.results) throw notFoundError('Unable to save building');
+    return postMyComment.results.insertId;
   },
 };
